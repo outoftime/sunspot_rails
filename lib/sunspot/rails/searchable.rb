@@ -104,7 +104,7 @@ module Sunspot #:nodoc:
         # Sunspot::Search:: Object containing results, totals, facets, etc.
         #
         def search(&block)
-          Sunspot.search(self, &block)
+          Sunspot::Rails.session.search(self, &block)
         end
 
         # 
@@ -125,7 +125,7 @@ module Sunspot #:nodoc:
         # Remove instances of this class from the Solr index.
         #
         def remove_all_from_index
-          Sunspot.remove_all(self)
+          Sunspot::Rails.session.remove_all(self)
         end
 
         # 
@@ -136,8 +136,8 @@ module Sunspot #:nodoc:
         # XXX Sunspot should implement remove_all!()
         #
         def remove_all_from_index!
-          Sunspot.remove_all(self)
-          Sunspot.commit
+          remove_all_from_index
+          Sunspot::Rails.session.commit
         end
 
         # 
@@ -180,20 +180,20 @@ module Sunspot #:nodoc:
           options = { :batch_size => 500, :batch_commit => true, :include => []}.merge(opts)
           remove_all_from_index
           unless options[:batch_size]
-            Sunspot.index!(all(:include => options[:include]))
+            Sunspot::Rails.session.index!(all(:include => options[:include]))
           else
             record_count = count
             counter = 1
             offset = 0
             while(offset < record_count)
               benchmark options[:batch_size], counter do
-                Sunspot.index(all(:include => options[:include], :offset => offset, :limit => options[:batch_size], :order => primary_key))
+                Sunspot::Rails.session.index(all(:include => options[:include], :offset => offset, :limit => options[:batch_size], :order => primary_key))
               end
-              Sunspot.commit if options[:batch_commit]
+              Sunspot::Rails.session.commit if options[:batch_commit]
               offset += options[:batch_size]
               counter += 1
             end
-            Sunspot.commit unless options[:batch_commit]
+            Sunspot::Rails.session.commit unless options[:batch_commit]
           end
         end
 
@@ -267,14 +267,14 @@ module Sunspot #:nodoc:
         # manually.
         #
         def index
-          Sunspot.index(self)
+          Sunspot::Rails.session.index(self)
         end
 
         # 
         # Index the model in Solr and immediately commit. See #index
         #
         def index!
-          Sunspot.index!(self)
+          Sunspot::Rails.session.index!(self)
         end
         
         # 
@@ -285,19 +285,15 @@ module Sunspot #:nodoc:
         # manually.
         #
         def remove_from_index
-          Sunspot.remove(self)
+          Sunspot::Rails.session.remove(self)
         end
 
         # 
         # Remove the model from the Solr index and commit immediately. See
         # #remove_from_index
         #
-        #---
-        #FIXME Sunspot should implement remove!()
-        #
         def remove_from_index!
-          Sunspot.remove(self)
-          Sunspot.commit
+          Sunspot::Rails.session.remove!(self)
         end
       end
     end

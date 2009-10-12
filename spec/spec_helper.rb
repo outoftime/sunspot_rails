@@ -25,8 +25,8 @@ end
 
 Spec::Runner.configure do |config|
   config.before(:each) do
-    Sunspot.remove_all
-    Sunspot.commit
+    Sunspot::Rails.session.remove_all
+    Sunspot::Rails.session.commit
     load_schema
   end
 end

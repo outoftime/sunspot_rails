@@ -4,7 +4,7 @@ describe 'searchable with lifecycle' do
   describe 'on create' do
     before :each do
       @post = PostWithAuto.create
-      Sunspot.commit
+      Sunspot::Rails.session.commit
     end
 
     it 'should automatically index' do
@@ -16,7 +16,7 @@ describe 'searchable with lifecycle' do
     before :each do
       @post = PostWithAuto.create
       @post.update_attributes(:title => 'Test 1')
-      Sunspot.commit
+      Sunspot::Rails.session.commit
     end
 
     it 'should automatically update index' do
@@ -28,7 +28,7 @@ describe 'searchable with lifecycle' do
     before :each do
       @post = PostWithAuto.create
       @post.destroy
-      Sunspot.commit
+      Sunspot::Rails.session.commit
     end
 
     it 'should automatically remove it from the index' do
