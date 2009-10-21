@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mat Brown", "Peer Allan", "Michael Moen", "Benjamin Krause"]
-  s.date = %q{2009-10-08}
+  s.date = %q{2009-10-21}
   s.description = %q{Sunspot::Rails is an extension to the Sunspot library for Solr search.
 Sunspot::Rails adds integration between Sunspot and ActiveRecord, including
 defining search and indexing related methods on ActiveRecord models themselves,
@@ -57,40 +57,38 @@ Rails request.
      "spec/mock_app/config/initializers/session_store.rb",
      "spec/mock_app/config/routes.rb",
      "spec/mock_app/config/sunspot.yml",
-     "spec/mock_app/db/test.db",
      "spec/model_lifecycle_spec.rb",
      "spec/model_spec.rb",
      "spec/request_lifecycle_spec.rb",
      "spec/schema.rb",
      "spec/spec_helper.rb"
   ]
-  s.has_rdoc = true
   s.homepage = %q{http://github.com/outoftime/sunspot_rails}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{sunspot}
-  s.rubygems_version = %q{1.3.2}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{Rails integration for the Sunspot Solr search library}
   s.test_files = [
-    "spec/spec_helper.rb",
-     "spec/configuration_spec.rb",
-     "spec/model_lifecycle_spec.rb",
-     "spec/schema.rb",
-     "spec/model_spec.rb",
-     "spec/mock_app/app/controllers/posts_controller.rb",
-     "spec/mock_app/app/controllers/application_controller.rb",
+    "spec/configuration_spec.rb",
      "spec/mock_app/app/controllers/application.rb",
+     "spec/mock_app/app/controllers/application_controller.rb",
+     "spec/mock_app/app/controllers/posts_controller.rb",
      "spec/mock_app/app/models/blog.rb",
-     "spec/mock_app/app/models/post_with_auto.rb",
      "spec/mock_app/app/models/post.rb",
+     "spec/mock_app/app/models/post_with_auto.rb",
+     "spec/mock_app/config/boot.rb",
      "spec/mock_app/config/environment.rb",
-     "spec/mock_app/config/initializers/session_store.rb",
-     "spec/mock_app/config/initializers/new_rails_defaults.rb",
      "spec/mock_app/config/environments/development.rb",
      "spec/mock_app/config/environments/test.rb",
+     "spec/mock_app/config/initializers/new_rails_defaults.rb",
+     "spec/mock_app/config/initializers/session_store.rb",
      "spec/mock_app/config/routes.rb",
-     "spec/mock_app/config/boot.rb",
-     "spec/request_lifecycle_spec.rb"
+     "spec/model_lifecycle_spec.rb",
+     "spec/model_spec.rb",
+     "spec/request_lifecycle_spec.rb",
+     "spec/schema.rb",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then

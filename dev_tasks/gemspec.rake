@@ -1,5 +1,5 @@
 begin
-  gem 'technicalpickles-jeweler', '~> 1.0'
+  gem 'jeweler', '~> 1.0'
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = 'sunspot_rails'
