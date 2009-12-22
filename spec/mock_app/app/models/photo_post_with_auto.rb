@@ -1,0 +1,2 @@
+class PhotoPostWithAuto < PostWithAuto
+end

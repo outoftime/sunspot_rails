@@ -6,7 +6,21 @@ module Sunspot
       class <<self
         def instance
           synchronize do
-            @instance ||= new
+            @instance ||=
+              begin
+                configuration = Sunspot::Rails::Configuration.new
+                if configuration.has_master?
+                  new(configuration)
+                else
+                  session = Sunspot::Session.new
+                  session.config.solr.url = URI::HTTP.build(
+                    :host => configuration.hostname,
+                    :port => configuration.port,
+                    :path => configuration.path
+                  ).to_s
+                  session
+                end
+              end
           end
         end
 
@@ -24,8 +38,8 @@ module Sunspot
                :remove_by_id!, :remove_all, :remove_all!, :dirty?, :commit_if_dirty, :batch,
                :to => :write_session
 
-      def initialize
-        @configuration = Sunspot::Rails::Configuration.new
+      def initialize(configuration)
+        @configuration = configuration
       end
 
       private

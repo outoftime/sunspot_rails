@@ -12,4 +12,10 @@ describe 'ActiveRecord mixin and instance methods' do
     @post.should_receive(:changes).and_return(:updated_at => Date.tomorrow)
     Sunspot::Rails::Util.index_relevant_attribute_changed?(@post).should == false
   end
+
+  it "should know about relevant index attributes with subclasses" do
+    @post = PhotoPostWithAuto.new
+    @post.should_receive(:changes).and_return(:title => 'new_title')
+    Sunspot::Rails::Util.index_relevant_attribute_changed?(@post).should == true
+  end
 end
